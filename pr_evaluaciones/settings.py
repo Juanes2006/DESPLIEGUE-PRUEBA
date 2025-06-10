@@ -85,14 +85,13 @@ WSGI_APPLICATION = 'pr_evaluaciones.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pr_evaluaciones_db',
+        'NAME': 'ferrocarril',
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'PASSWORD': 'avpJLsvQhgloImIdaWAczumzBJXcHXfN',
+        'HOST': 'yamanote.proxy.rlwy.net',
+        'PORT': '45137',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
