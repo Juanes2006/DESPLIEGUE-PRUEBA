@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8">
+
+    <div class="max-w-6xl mx-auto bg-white p-6 rounded-xl shadow-md">
+        <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">Panel del Administrador</h1>
+
+        <div class="max-w-xl mx-auto mt-10 px-4">
+            <h1 class="text-4xl font-bold text-center mb-4">
+                Panel de {{ usuario.rol }}
+            </h1>
+            <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">
+                ¡Bienvenido, {{ usuario.username }}!
+            </h2>
+
+        </div>
+
+        <div class="flex justify-end mb-4">
+            <a href="{% url 'crear_candidato' %}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                Crear nuevo candidato
+            </a>
+        </div>
+
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Cédula</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Correo</th>
+                    <th class="px-4 py-2">Puntaje</th>
+                    <!-- Este campo aún no existe -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in candidatos %}
+                <tr>
+                    <td class="px-4 py-2">{{ c.documento_identidad }}</td>
+                    <td class="px-4 py-2">{{ c.nombre }}</td>
+                    <td class="px-4 py-2">{{ c.email }}</td>
+                    <td class="px-4 py-2">N/A</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-gray-500 py-4">No hay candidatos registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</body>
+
+</html>

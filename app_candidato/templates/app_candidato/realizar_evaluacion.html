@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Realizar Evaluación</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- para responsive -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body {
+            margin: 2rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9fafb;
+            color: #333;
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
+            /* tamaño de fuente adaptable, no menor a 1rem */
+            min-width: 320px;
+            /* mínimo ancho para evitar achiques excesivos */
+        }
+        
+        .container {
+            max-width: 700px;
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+            min-width: 320px;
+            /* para no achicar más allá */
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #0d6efd;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+        
+        .pregunta {
+            margin-bottom: 2rem;
+        }
+        
+        .pregunta p {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #212529;
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+        }
+        
+        hr {
+            margin: 1rem 0 2rem 0;
+            border: none;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .form-check {
+            background: #f1f3f5;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.7rem;
+            cursor: pointer;
+            transition: background-color 0.25s ease;
+            box-shadow: inset 0 0 0 2px transparent;
+            font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        }
+        
+        .form-check:hover {
+            background: #e9ecef;
+        }
+        
+        .form-check-input:checked+.form-check-label {
+            font-weight: 700;
+            color: #0d6efd;
+        }
+        
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+        
+        button.btn-success {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            font-weight: 600;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgb(13 110 253 / 0.4);
+            transition: background-color 0.3s ease;
+        }
+        
+        button.btn-success:hover {
+            background-color: #0b5ed7;
+            box-shadow: 0 6px 20px rgb(11 94 215 / 0.6);
+        }
+        /* Para pantallas muy pequeñas, añade un poco de scroll horizontal para evitar que se reduzca todo */
+        
+        @media (max-width: 360px) {
+            body {
+                margin: 1rem;
+            }
+            .container {
+                padding: 1rem 1.5rem;
+                min-width: unset;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>📝 Realizar Evaluación</h2>
+        <form method="post">
+            {% csrf_token %} {% for pregunta in preguntas %}
+            <div class="pregunta">
+                <p><strong>{{ forloop.counter }}. {{ pregunta.texto }}</strong></p>
+                {% for opcion in pregunta.get_opciones %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="pregunta_{{ pregunta.id }}" value="{{ forloop.counter0 }}" id="pregunta_{{ pregunta.id }}_{{ forloop.counter0 }}">
+                    <label class="form-check-label" for="pregunta_{{ pregunta.id }}_{{ forloop.counter0 }}">
+                        {{ opcion }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+            <hr> {% endfor %}
+            <button type="submit" class="btn btn-success mt-3">Enviar Evaluación</button>
+        </form>
+    </div>
+</body>
+
+</html>

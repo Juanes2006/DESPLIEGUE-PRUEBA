@@ -1,0 +1,61 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Candidato</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen py-10 px-6">
+
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+
+        <div class="max-w-xl mx-auto mt-10 px-4">
+            <h1 class="text-4xl font-bold text-center mb-4">
+                Panel de {{ usuario.rol }}
+            </h1>
+            <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">
+                ¡Bienvenido, {{ usuario.username }}!
+            </h2>
+            <p class="text-center text-gray-600 mb-8">
+                Aquí puedes realizar tu evaluación y ver tus resultados.
+            </p>
+        </div>
+
+
+        <h1 class="text-4xl font-bold text-center text-blue-800 mb-10">🎓 Panel del Candidato</h1>
+
+
+        <!-- MOSTRAR MENSAJES FLASH -->
+        {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="p-4 rounded-md 
+                        {% if message.tags == 'success' %}
+                            bg-green-100 text-green-800 border border-green-300
+                        {% elif message.tags == 'error' %}
+                            bg-red-100 text-red-800 border border-red-300
+                        {% else %}
+                            bg-gray-100 text-gray-800 border border-gray-300
+                        {% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- BOTÓN PARA EVALUACIÓN -->
+        <div class="flex justify-center">
+            <a href="{% url 'realizar_evaluacion' %}" class="bg-green-600 text-white text-lg px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300 ease-in-out shadow-md">
+                Realizar Evaluación
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>
